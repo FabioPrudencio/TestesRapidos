@@ -1,3 +1,5 @@
+package application;
+
 import java.io.BufferedReader;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
@@ -9,10 +11,13 @@ import java.text.SimpleDateFormat;
 import java.time.Instant;
 import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
+import java.util.Map;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
@@ -20,24 +25,35 @@ import org.json.JSONObject;
 public class Main {
 
 	public static void main(String[] args) throws ParseException {
-		
-		testeStringToLong();
-		//testeList();
-		//testeData();		
-		//testeTimestamp();		
-		//testeItensVtex();		
-		//removeEspecCaract("00-000-00_0/0");		
-		//testeInstant();
-		//testeDataLocal();		
-		//formataDataOracle("2021-07-27T23:59:59.000-03:00");		
-		//testeSubstring();		
-		//testeJSON();
-		//comparaJSON();
-		//localeDatas();
-		//conversaoDatas();
-		//testeCalendar();
-		//formatandoDatas();
-		//formatandoSaidaDatas();
+
+		testeDesconto();
+		// String teste = "asd;123";
+		// System.out.println("primeira posicao: " + teste.split(";")[0]);
+		// testeMap();
+		// testeSplit();
+		// testeJava();
+		// String javaVersion = System.getProperty("java.version");
+		// String javaHome = System.getProperty("java.home");
+		// String java_home = System.getenv("JAVA_HOME");
+		// String path = System.getenv("PATH");
+
+		// testeList();
+		// testeStringToLong();
+		// testeData();
+		// testeTimestamp();
+		// testeItensVtex();
+		// removeEspecCaract("00-000-00_0/0");
+		// testeInstant();
+		// testeDataLocal();
+		// formataDataOracle("2021-07-27T23:59:59.000-03:00");
+		// testeSubstring();
+		// testeJSON();
+		// comparaJSON();
+		// localeDatas();
+		// conversaoDatas();
+		// testeCalendar();
+		// formatandoDatas();
+		// formatandoSaidaDatas();
 
 		// exemploArray();
 		// String teste = String.format("teste %s", "ok");
@@ -54,77 +70,160 @@ public class Main {
 		// formatTelefone();
 		// dividirString();
 	}
-	
+
+	public static void testeDesconto() {
+		
+		JSONObject objProduto = new JSONObject();
+		
+		objProduto.put("value", 62.94);
+		objProduto.put("discount", 6.71);
+		
+		Double value = objProduto.optDouble("value");
+		Double discount = objProduto.optDouble("discount");
+		
+		Double discountPercent = (discount * 100) / value;
+		
+		Double discntPrc = (objProduto.optDouble("discount") * 100) / objProduto.optDouble("value");
+		
+		System.out.println("percentual de desconto: " + discountPercent);
+		System.out.println("percentual de desconto: " + String.format("%.2f",discntPrc));
+		
+		
+		
+		
+	}
+
+	public static void testeToLowerCase() {
+		String result = "\"msgRet\":\"Ok";
+
+		if (result.toLowerCase().toString().contains(String.format("\"msgret\":\"ok").toLowerCase())) {
+			System.out.println("Retorno com sucesso");
+		} else {
+			System.out.println("Erro");
+		}
+	}
+
+	public static void testeMap() {
+		Map<String, String> bodyAuth = new HashMap<String, String>();
+		bodyAuth.put("grant_type", "password");
+		bodyAuth.put("username", "AAQJ");
+		bodyAuth.put("password", "AAQJAAUAAAUFAAUAAAUCAAUGAAUFAAUHAAQIAAQIAAQIAAQJAAQIAAQJ");
+		bodyAuth.put("client_id", "userIntegration");
+
+		/*
+		 * JSONObject bodyAuth = new HashMap<>(); bodyAuth.put("grant_type",
+		 * "password"); bodyAuth.put("username", "AAQJ"); bodyAuth.put("password",
+		 * "AAQJAAUAAAUFAAUAAAUCAAUGAAUFAAUHAAQIAAQIAAQIAAQJAAQIAAQJ");
+		 * bodyAuth.put("client_id", "userIntegration");
+		 */
+
+		System.out.println(bodyAuth.toString());
+
+	}
+
+	public static void testeSplit() {
+		String skuCode = "04.200.00003--001";
+		String[] prodDer = null;
+		String codProd = "";
+		String codDer = "";
+
+		prodDer = skuCode.split("--");
+		if (prodDer.length > 1) {
+			codProd = prodDer[0];
+			codDer = prodDer[1];
+		} else {
+			codProd = prodDer[0];
+		}
+
+		System.out.println("codProd: " + codProd);
+		System.out.println("codDer: " + codDer);
+
+	}
+
+	public static void testeJava() {
+		String[] array = new String[] { "A", "B", "C" };
+		List<String> list1 = Arrays.asList(array);
+		List<String> list2 = new ArrayList<>(Arrays.asList(array));
+		List<String> list3 = new ArrayList<>(Arrays.asList("A", new String("B"), "C"));
+		System.out.print(list1.equals(list2));
+		System.out.print(list1.equals(list3));
+	}
+
 	public static void testeStringToLong() {
 		String str = "45";
-		
+
 		Date dt = new Date();
-		
+
 		System.out.println(dt);
 		System.out.println(dt.getTime());
-		
-		System.out.println(Long.valueOf(str));		
+
+		System.out.println(Long.valueOf(str));
 	}
-	
+
 	public static void testeList() {
+		JSONArray listaArray = new JSONArray();
 		List<JSONObject> list = new ArrayList<JSONObject>();
-		
+
 		JSONObject obj1 = new JSONObject();
 		obj1.put("id", 1);
-		obj1.put("name", "objeto 1");		
+		obj1.put("name", "objeto 1");
 		list.add(obj1);
-		
+
 		JSONObject obj2 = new JSONObject();
 		obj2.put("id", 1);
-		obj2.put("name", "objeto 2");		
+		obj2.put("name", "objeto 2");
 		list.add(obj2);
-		
+
 		JSONObject obj3 = new JSONObject();
 		obj3.put("id", 1);
-		obj3.put("name", "objeto 3");		
+		obj3.put("name", "objeto 3");
 		list.add(obj3);
-		
+
 		JSONObject especObj = new JSONObject();
-		
+
+		list.addAll(Arrays.asList(obj1, obj2, obj3));
+
+		System.out.println(list.toString());
+
 		especObj = (JSONObject) list.get(0);
-		
+
 		System.out.println(especObj);
-		
+
 	}
-	
+
 	public static void testeData() {
 		Locale.setDefault(Locale.US);
-		
+
 		Date novaData = new Date();
 
 		System.out.println(novaData.toInstant());
 	}
-	
-	public static void testeTimestamp(){
+
+	public static void testeTimestamp() {
 		SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
-		
+
 		Date dt = new Date();
 		long lg = dt.getTime();
-		
+
 		System.out.println(lg);
-		
+
 		try {
 			dt = sdf.parse("10/11/2021");
 		} catch (ParseException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		
+
 		Long milliSeconds = 9999999998L;
-		
+
 		Timestamp ts = new Timestamp(milliSeconds);
-		
-		//Timestamp timestamp = new Timestamp(System.currentTimeMillis());
-		//String date = new SimpleDateFormat("dd/MM/yyyy").format(timestamp.getTime());
+
+		// Timestamp timestamp = new Timestamp(System.currentTimeMillis());
+		// String date = new SimpleDateFormat("dd/MM/yyyy").format(timestamp.getTime());
 		String date = new SimpleDateFormat("dd/MM/yyyy").format(ts.getTime());
 		System.out.println(date + ", " + String.valueOf(ts));
 	}
-	
+
 	public static void testeItensVtex() {
 		JSONArray planilha = new JSONArray();
 		JSONObject linha = new JSONObject();
@@ -140,123 +239,123 @@ public class Main {
 		planilha.put(linha);
 	}
 
-    public static void removeEspecCaract (String arg) {
-        arg = arg.replace("-","");
-        arg = arg.replace("_","");
-        arg = arg.replace("/","");
-        
-        System.out.println(arg);
-    }	
-	
+	public static void removeEspecCaract(String arg) {
+		arg = arg.replace("-", "");
+		arg = arg.replace("_", "");
+		arg = arg.replace("/", "");
+
+		System.out.println(arg);
+	}
+
 	private static void testeInstant() {
-		
+
 		Date d = Date.from(Instant.parse("2021-07-19T14:56:37.227Z"));
-		
-		//Date orderDateAux = Date.from(Instant.parse("2021-07-19T14:56:37.227"));
-		//Date orderDateAux =   Date.from(Instant.parse("2021-07-19T14:56:37Z"));
-		
+
+		// Date orderDateAux = Date.from(Instant.parse("2021-07-19T14:56:37.227"));
+		// Date orderDateAux = Date.from(Instant.parse("2021-07-19T14:56:37Z"));
+
 		System.out.println("d: " + d);
-		
-		//Date orderDateAux = Date.from(Instant.parse("2021-07-19T14:56:37.227"));
-		
-		//System.out.println("orderFateAux: " + orderDateAux);
-		
+
+		// Date orderDateAux = Date.from(Instant.parse("2021-07-19T14:56:37.227"));
+
+		// System.out.println("orderFateAux: " + orderDateAux);
+
 		Date data = new Date();
 		String strData = "";
 		strData = String.valueOf(data.toInstant());
-		
+
 		System.out.println(data.toInstant());
 		System.out.println(strData);
 	}
-	
+
 	private static void testeDataLocal() {
 		LocalDate dt = LocalDate.now();
-		
-		System.out.println(dt);		
-	}	
-	
+
+		System.out.println(dt);
+	}
+
 	private static void testeSubstring() {
 		String retornoApi = "Objeto entregue ao destinatário";
-		String situacao = retornoApi.substring(0,15);
-		
+		String situacao = retornoApi.substring(0, 15);
+
 		if (situacao.equals("Objeto entregue")) {
 			System.out.println("Entrega finalizada");
-		}			
-		
-		System.out.println(situacao);		
+		}
+
+		System.out.println(situacao);
 	}
-	
+
 	public static void comparaJSON() {
-		
+
 		JSONArray retornoListaCorreio = retornaJSONCorreio();
 		JSONArray retornoListaPedido = retornaJSONPedido();
-		
-		for (Object retornoPedido : retornoListaPedido){
+
+		for (Object retornoPedido : retornoListaPedido) {
 			JSONObject pedido = (JSONObject) retornoPedido;
-		
+
 			for (int i = 0; i < retornoListaCorreio.length(); i++) {
 				JSONObject correio = (JSONObject) retornoListaCorreio.get(i);
-				
+
 				if (pedido.optString("numero").equals(correio.optString("numero"))) {
 					System.out.println(correio.optString("numero"));
-					//retornoListaCorreio.remove(i);
+					// retornoListaCorreio.remove(i);
 				}
-				
+
 			}
 		}
 	}
-	
+
 	public static JSONArray retornaJSONCorreio() {
-		JSONArray listaCorreio = new JSONArray(); 
+		JSONArray listaCorreio = new JSONArray();
 		for (int i = 1; i <= 9; i++) {
 			listaCorreio.put(criaObjeto("entrega" + i, "220" + i, "c"));
-		}		
+		}
 		return listaCorreio;
 	}
-	
+
 	public static JSONArray retornaJSONPedido() {
-		JSONArray listaPedido = new JSONArray(); 
+		JSONArray listaPedido = new JSONArray();
 		for (int i = 1; i <= 5; i++) {
 			listaPedido.put(criaObjeto("entrega" + i, "220" + i, "p"));
-		}		
+		}
 		return listaPedido;
 	}
-	
+
 	public static JSONObject criaObjeto(String nome, String numero, String identificador) {
 		JSONObject obj = new JSONObject();
-		
+
 		obj.put("nome", nome);
 		obj.put("numero", numero);
 		obj.put("identificador", identificador);
-		
+
 		if (identificador == "c") {
 			obj.put("outros", "valor aleatório");
 		}
-		
+
 		return obj;
 	}
-	
+
 	public static void localeDatas() throws ParseException {
 		Calendar c = Calendar.getInstance();
 		Date data = c.getTime();
-		
-		//System.out.println(data.);
 
-		Locale brasil = new Locale("pt", "BR"); //Retorna do país e a língua
+		// System.out.println(data.);
+
+		Locale brasil = new Locale("pt", "BR"); // Retorna do país e a língua
 		Locale eua = Locale.US;
 		Locale italia = Locale.ITALIAN;
 
 		DateFormat f2 = DateFormat.getDateInstance(DateFormat.FULL, brasil);
-		System.out.println("Data e hora brasileira: "+f2.format(data));
+		System.out.println("Data e hora brasileira: " + f2.format(data));
 
 		DateFormat f3 = DateFormat.getDateInstance(DateFormat.FULL, eua);
-		System.out.println("Data e hora americana: "+f3.format(data));
+		System.out.println("Data e hora americana: " + f3.format(data));
 
 		DateFormat f4 = DateFormat.getDateInstance(DateFormat.FULL, italia);
-		System.out.println("Data e hora italiana: "+f4.format(data));
-	}	
-	
-	public static void conversaoDatas() throws ParseException{
+		System.out.println("Data e hora italiana: " + f4.format(data));
+	}
+
+	public static void conversaoDatas() throws ParseException {
 		Calendar c = Calendar.getInstance();
 		Date data = c.getTime();
 		DateFormat f = DateFormat.getDateInstance();
@@ -265,15 +364,15 @@ public class Main {
 		System.out.println(data2);
 
 		SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
-		System.out.println("Data formatada: "+sdf.format(data));
+		System.out.println("Data formatada: " + sdf.format(data));
 
-		//Converte Objetos
-		System.out.println("Data convertida:"+sdf.parse("02/08/1970"));
-	}	
+		// Converte Objetos
+		System.out.println("Data convertida:" + sdf.parse("02/08/1970"));
+	}
 
 	public static void formatandoSaidaDatas() {
-		//https://www.devmedia.com.br/trabalhando-com-as-classes-date-calendar-e-simpledateformat-em-java/27401		
-		
+		// https://www.devmedia.com.br/trabalhando-com-as-classes-date-calendar-e-simpledateformat-em-java/27401
+
 		Calendar c = Calendar.getInstance();
 		Date data = c.getTime();
 
@@ -291,8 +390,8 @@ public class Main {
 	}
 
 	public static void formatandoDatas() {
-		//https://www.devmedia.com.br/trabalhando-com-as-classes-date-calendar-e-simpledateformat-em-java/27401
-		
+		// https://www.devmedia.com.br/trabalhando-com-as-classes-date-calendar-e-simpledateformat-em-java/27401
+
 		Calendar c = Calendar.getInstance();
 		c.set(2013, Calendar.FEBRUARY, 28);
 		Date data = c.getTime();
@@ -325,8 +424,8 @@ public class Main {
 
 	}
 
-	private StringBuilder geraSbProdutos(JSONArray produtos) {		
-		
+	private StringBuilder geraSbProdutos(JSONArray produtos) {
+
 		String delimiterProd = ";";
 		String rnProd = "\r\n";
 		StringBuilder sb = new StringBuilder();
@@ -498,8 +597,6 @@ public class Main {
 			System.out.println(tabelas[i]);
 		}
 	}
-	
-	
 
 	public static void testeJSON() {
 		JSONArray carros = new JSONArray();
@@ -509,17 +606,17 @@ public class Main {
 		monza.put("modelo", "monza");
 		monza.put("codigo", 74);
 		monza.put("tipo", "popular");
-		
+
 		JSONObject celta = new JSONObject();
 		celta.put("modelo", "celta");
 		celta.put("codigo", 15);
-		celta.put("tipo", "popular");		
+		celta.put("tipo", "popular");
 
 		JSONObject viper = new JSONObject();
 		viper.put("modelo", "viper");
 		viper.put("codigo", 123);
 		viper.put("tipo", "importado");
-		
+
 		JSONObject bmw = new JSONObject();
 		bmw.put("modelo", "bmw");
 		bmw.put("codigo", 62);
@@ -529,24 +626,25 @@ public class Main {
 		carros.put(celta);
 		carrosImportados.put(viper);
 		carrosImportados.put(bmw);
-		
-		JSONArray todosCarros = new JSONArray(); 
+
+		JSONArray todosCarros = new JSONArray();
 		todosCarros = concatArray(carros, carrosImportados);
-		
+
 		carros = concatArray(carros, carrosImportados);
-		
-		//System.out.println(todosCarros.toString());
-		//System.out.println(carros.toString());
-        //JSONObject grupoCarro = new JSONObject();		
-		//grupoCarro.put("modelo", carros.optJSONObject(0).optString("modelo"));
+
+		// System.out.println(todosCarros.toString());
+		// System.out.println(carros.toString());
+		// JSONObject grupoCarro = new JSONObject();
+		// grupoCarro.put("modelo", carros.optJSONObject(0).optString("modelo"));
 		// System.out.println(carros.get(1).toString());
-		//System.out.println(grupoCarro.toString());
+		// System.out.println(grupoCarro.toString());
 	}
-	
-	private static JSONArray concatArray( JSONArray jsArr1, JSONArray jsArr2) {
-	    List<Object> list = jsArr1.toList();
-	    list.addAll(jsArr2.toList());
-	    return new JSONArray(list);
+
+	// Concatena arrays lists
+	private static JSONArray concatArray(JSONArray jsArr1, JSONArray jsArr2) {
+		List<Object> list = jsArr1.toList();
+		list.addAll(jsArr2.toList());
+		return new JSONArray(list);
 	}
 
 	public static void respostaPutPedidoVenda() {
