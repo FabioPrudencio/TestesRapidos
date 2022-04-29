@@ -26,17 +26,19 @@ public class Main {
 
 	public static void main(String[] args) throws ParseException {
 
-		testeDesconto();
 		// String teste = "asd;123";
 		// System.out.println("primeira posicao: " + teste.split(";")[0]);
-		// testeMap();
-		// testeSplit();
-		// testeJava();
 		// String javaVersion = System.getProperty("java.version");
 		// String javaHome = System.getProperty("java.home");
 		// String java_home = System.getenv("JAVA_HOME");
 		// String path = System.getenv("PATH");
 
+		testeSplit2();
+		//testeArrayList();
+		// testeMap();
+		// testeSplit();
+		// testeJavaLinkedIn();
+		// testeDesconto();
 		// testeList();
 		// testeStringToLong();
 		// testeData();
@@ -70,27 +72,61 @@ public class Main {
 		// formatTelefone();
 		// dividirString();
 	}
+	
+	public static void testeSplit2() {
+		System.out.println(splitString("1010-5645464"));		
+		
+	}
+	
+	public static String splitString(String str) {
+		return str.split("-")[0];		
+	}
+	
+	public static void testeArrayList() {
+        List<JSONObject> listOrcamento = new ArrayList<JSONObject>();
+        JSONObject orcamento = new JSONObject();
+        orcamento.put("transacao", "transacao");
+        orcamento.put("cnpj_empresa", "cnpj_empresa");
+        orcamento.put("doc_cliente", "doc_cliente");
+        orcamento.put("data_documento", "data_documento");
+        orcamento.put("documento", "documento");
+        orcamento.put("codigo_produto", "codigo_produto");
+        orcamento.put("qtdeproduto", "qtdeproduto");
+        orcamento.put("preco_unitario", "preco_unitario");
+        orcamento.put("posicao_item", "posicao_item");
+        
+        orcamento.put("obs", "obs");
+        orcamento.put("plano", "plano");
+        orcamento.put("valor_frete", "valor_frete");
+        orcamento.put("origem_codigo_produto", "origem_codigo_produto");
+        orcamento.put("codigo_vendedor", "codigo_vendedor");
+        orcamento.put("pedido", "pedido");
+        orcamento.put("reserva_estoque", "reserva_estoque");
+        
+        listOrcamento.add(orcamento);
+        
+        for (JSONObject objOrc : listOrcamento) {
+        	System.out.println(objOrc.toString(2));
+        }
+        
+	}
 
 	public static void testeDesconto() {
-		
+
 		JSONObject objProduto = new JSONObject();
-		
+
 		objProduto.put("value", 62.94);
 		objProduto.put("discount", 6.71);
-		
+
 		Double value = objProduto.optDouble("value");
 		Double discount = objProduto.optDouble("discount");
-		
+
 		Double discountPercent = (discount * 100) / value;
-		
+
 		Double discntPrc = (objProduto.optDouble("discount") * 100) / objProduto.optDouble("value");
-		
+
 		System.out.println("percentual de desconto: " + discountPercent);
-		System.out.println("percentual de desconto: " + String.format("%.2f",discntPrc));
-		
-		
-		
-		
+		System.out.println("percentual de desconto: " + String.format("%.2f", discntPrc));
 	}
 
 	public static void testeToLowerCase() {
@@ -140,7 +176,7 @@ public class Main {
 
 	}
 
-	public static void testeJava() {
+	public static void testeJavaLinkedIn() {
 		String[] array = new String[] { "A", "B", "C" };
 		List<String> list1 = Arrays.asList(array);
 		List<String> list2 = new ArrayList<>(Arrays.asList(array));
@@ -205,12 +241,11 @@ public class Main {
 		Date dt = new Date();
 		long lg = dt.getTime();
 
-		System.out.println(lg);
+		System.out.println("lg: " + lg);
 
 		try {
 			dt = sdf.parse("10/11/2021");
 		} catch (ParseException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 
