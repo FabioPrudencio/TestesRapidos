@@ -33,8 +33,10 @@ public class Main {
 		// String java_home = System.getenv("JAVA_HOME");
 		// String path = System.getenv("PATH");
 
-		testeSplit2();
-		//testeArrayList();
+		listVsJsonArray();
+
+		// testeSplit2();
+		// testeArrayList();
 		// testeMap();
 		// testeSplit();
 		// testeJavaLinkedIn();
@@ -72,43 +74,83 @@ public class Main {
 		// formatTelefone();
 		// dividirString();
 	}
-	
-	public static void testeSplit2() {
-		System.out.println(splitString("1010-5645464"));		
+
+	public static void listVsJsonArray() {
+		JSONObject obj1 = new JSONObject();
+		obj1.put("name", "fabio");
+		obj1.put("email", "fabio@inoutway.com.br");
+
+		JSONObject obj2 = new JSONObject();
+		obj2.put("name", "guilherme");
+		obj2.put("email", "guilherme@inoutway.com.br");
+
+		JSONObject obj3 = new JSONObject();
+		obj3.put("name", "maria");
+		obj3.put("email", "maria@inoutway.com.br");
+
+		JSONArray array = new JSONArray();
+		array.put(obj1);
+		array.put(obj2);
+		array.put(obj3);
+		for (Object objGen : array) {
+			JSONObject obj = (JSONObject) objGen;
+			System.out.println(obj.optString("email"));
+		}
+
+		System.out.println("---------------------------------------------");
+
+		List<JSONObject> list = new ArrayList<>();
+		list.add(obj1);
+		list.add(obj2);
+		list.add(obj3);
 		
+		for (JSONObject obj : list) {
+			System.out.println(obj.optString("email"));
+		}
+
+		System.out.println("---------------------------------------------");
+
+		for (int i = 0; i < 3; i++) {
+			System.out.println(list.get(i).optString("email"));
+		}
+
 	}
-	
+
+	public static void testeSplit2() {
+		System.out.println(splitString("1010-5645464"));
+	}
+
 	public static String splitString(String str) {
-		return str.split("-")[0];		
+		return str.split("-")[0];
 	}
-	
+
 	public static void testeArrayList() {
-        List<JSONObject> listOrcamento = new ArrayList<JSONObject>();
-        JSONObject orcamento = new JSONObject();
-        orcamento.put("transacao", "transacao");
-        orcamento.put("cnpj_empresa", "cnpj_empresa");
-        orcamento.put("doc_cliente", "doc_cliente");
-        orcamento.put("data_documento", "data_documento");
-        orcamento.put("documento", "documento");
-        orcamento.put("codigo_produto", "codigo_produto");
-        orcamento.put("qtdeproduto", "qtdeproduto");
-        orcamento.put("preco_unitario", "preco_unitario");
-        orcamento.put("posicao_item", "posicao_item");
-        
-        orcamento.put("obs", "obs");
-        orcamento.put("plano", "plano");
-        orcamento.put("valor_frete", "valor_frete");
-        orcamento.put("origem_codigo_produto", "origem_codigo_produto");
-        orcamento.put("codigo_vendedor", "codigo_vendedor");
-        orcamento.put("pedido", "pedido");
-        orcamento.put("reserva_estoque", "reserva_estoque");
-        
-        listOrcamento.add(orcamento);
-        
-        for (JSONObject objOrc : listOrcamento) {
-        	System.out.println(objOrc.toString(2));
-        }
-        
+		List<JSONObject> listOrcamento = new ArrayList<JSONObject>();
+		JSONObject orcamento = new JSONObject();
+		orcamento.put("transacao", "transacao");
+		orcamento.put("cnpj_empresa", "cnpj_empresa");
+		orcamento.put("doc_cliente", "doc_cliente");
+		orcamento.put("data_documento", "data_documento");
+		orcamento.put("documento", "documento");
+		orcamento.put("codigo_produto", "codigo_produto");
+		orcamento.put("qtdeproduto", "qtdeproduto");
+		orcamento.put("preco_unitario", "preco_unitario");
+		orcamento.put("posicao_item", "posicao_item");
+
+		orcamento.put("obs", "obs");
+		orcamento.put("plano", "plano");
+		orcamento.put("valor_frete", "valor_frete");
+		orcamento.put("origem_codigo_produto", "origem_codigo_produto");
+		orcamento.put("codigo_vendedor", "codigo_vendedor");
+		orcamento.put("pedido", "pedido");
+		orcamento.put("reserva_estoque", "reserva_estoque");
+
+		listOrcamento.add(orcamento);
+
+		for (JSONObject objOrc : listOrcamento) {
+			System.out.println(objOrc.toString(2));
+		}
+
 	}
 
 	public static void testeDesconto() {
